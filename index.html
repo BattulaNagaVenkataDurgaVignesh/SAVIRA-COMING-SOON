@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAVIRA MEDIA | Crafting The Extraordinary</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;700;800&display=swap');
+
+:root {
+    --primary-purple: #682c82;
+    --dark-bg: #050206;
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: var(--dark-bg);
+    color: white;
+    overflow: hidden;
+}
+
+/* FIX */
+.group:hover span {
+    color: #000;
+}
+
+.glass-card {
+    background: rgba(255,255,255,0.03);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 24px;
+}
+
+.purple-glow {
+    box-shadow: 0 0 50px rgba(104,44,130,0.3);
+}
+
+.mesh-container {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+}
+
+.gradient-sphere {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.4;
+    background: linear-gradient(45deg,var(--primary-purple),#9d50bb);
+}
+
+/* LOADER */
+#loader {
+    position: fixed;
+    inset: 0;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.loader-logo {
+    font-size: 3rem;
+    font-weight: 800;
+    letter-spacing: 0.5rem;
+    opacity: 0;
+    transform: scale(0.8);
+    text-shadow: 0 0 20px rgba(104,44,130,0.8);
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+    <div class="loader-logo" id="loaderLogo">
+        SAVIRA<span style="color:#682c82">MEDIA</span>
+    </div>
+</div>
+
+<!-- BACKGROUND -->
+<div class="mesh-container">
+    <div class="gradient-sphere w-[500px] h-[500px] -top-20 -left-20" id="sphere1"></div>
+    <div class="gradient-sphere w-[400px] h-[400px] bottom-0 right-0" style="background:#2d0b3d" id="sphere2"></div>
+</div>
+
+<!-- MAIN -->
+<main class="relative min-h-screen flex flex-col items-center justify-between py-12 px-6">
+
+<nav class="w-full max-w-7xl flex justify-between items-center opacity-0 nav-item">
+    <div class="text-xl font-extrabold tracking-tighter">
+        SAVIRA MEDIA<span style="color:#682c82">.</span>
+    </div>
+    <div class="glass-card px-6 py-2 text-sm uppercase">
+        Launching Soon • Stay Tuned
+    </div>
+</nav>
+
+<section class="text-center z-10">
+    <h1 class="text-5xl md:text-8xl font-extrabold mb-6 opacity-0 hero-title leading-tight">
+        We Are Designing <br>
+        <span class="bg-gradient-to-r from-white via-[#682c82] to-white bg-clip-text text-transparent">
+            Something Extraordinary
+        </span>
+    </h1>
+
+</section>
+
+<footer class="w-full max-w-7xl flex flex-col md:flex-row justify-between items-center opacity-0 footer-item text-gray-500 text-xs gap-4">
+    <div class="flex gap-6">
+        <a href="#" class="hover:text-white">INSTAGRAM</a>
+        <a href="#" class="hover:text-white">LINKEDIN</a>
+        <a href="#" class="hover:text-white">TWITTER</a>
+    </div>
+
+<div class="text-center md:text-right uppercase" style="font-family: sans-serif;">
+    Website is Being Designed and Crafted by 
+    <span style="color:#fff; margin-left: 6px;">Vignesh Battula</span>
+</div>
+</footer>
+
+</main>
+
+<!-- SCRIPT -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+    // 🔥 FORCE VISIBILITY (fix blank screen)
+    document.querySelectorAll('.nav-item, .hero-title, .hero-subtitle, .hero-cta, .footer-item')
+        .forEach(el => el.style.opacity = "1");
+
+    const loader = document.getElementById("loader");
+
+    if (typeof gsap !== "undefined") {
+
+        const tl = gsap.timeline();
+
+        tl.to("#loaderLogo", {
+            opacity: 1,
+            scale: 1,
+            duration: 1
+        })
+        .to("#loader", {
+            opacity: 0,
+            duration: 1,
+            onComplete: () => {
+                loader.style.display = "none";
+                document.body.style.overflow = "auto";
+            }
+        });
+
+        gsap.to("#sphere1", { x: 100, y: 50, duration: 10, repeat: -1, yoyo: true });
+        gsap.to("#sphere2", { x: -100, y: -50, duration: 12, repeat: -1, yoyo: true });
+
+    } else {
+        // fallback
+        loader.style.display = "none";
+        document.body.style.overflow = "auto";
+    }
+});
+</script>
+
+</body>
+</html>
